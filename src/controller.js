@@ -1,9 +1,9 @@
-import { nanoid } from 'nanoid';
-import notes from '../src/notes.js';
+import { nanoid } from "nanoid";
+import notes from "../src/notes.js";
 
 export const createNote = (req, res, next) => {
   try {
-    const { title = 'untitled', tags, body } = req.body;
+    const { title = "untitled", tags, body } = req.body;
     const id = nanoid(16);
     const ts = new Date().toISOString();
 
@@ -13,15 +13,15 @@ export const createNote = (req, res, next) => {
     const isSuccess = notes.some((n) => n.id === id);
     if (isSuccess) {
       return res.status(201).json({
-        status: 'success',
-        message: 'Catatan berhasil ditambahkan',
-        data: { noteId: id }
+        status: "success",
+        message: "Catatan berhasil ditambahkan",
+        data: { noteId: id },
       });
     }
 
     return res.status(500).json({
-      status: 'fail',
-      message: 'Catatan gagal ditambahkan'
+      status: "fail",
+      message: "Catatan gagal ditambahkan",
     });
   } catch (err) {
     next(err);
@@ -30,8 +30,8 @@ export const createNote = (req, res, next) => {
 
 export const getNotes = (req, res) => {
   return res.json({
-    status: 'success',
-    data: { notes }
+    status: "success",
+    data: { notes },
   });
 };
 
@@ -41,14 +41,14 @@ export const getNoteById = (req, res) => {
 
   if (note) {
     return res.json({
-      status: 'success',
-      data: { note }
+      status: "success",
+      data: { note },
     });
   }
 
   return res.status(404).json({
-    status: 'fail',
-    message: 'Catatan tidak ditemukan'
+    status: "fail",
+    message: "Catatan tidak ditemukan",
   });
 };
 
@@ -61,14 +61,14 @@ export const updateNoteById = (req, res) => {
   if (idx !== -1) {
     notes[idx] = { ...notes[idx], title, tags, body, updatedAt };
     return res.json({
-      status: 'success',
-      message: 'Catatan berhasil diperbarui'
+      status: "success",
+      message: "Catatan berhasil diperbarui",
     });
   }
 
   return res.status(404).json({
-    status: 'fail',
-    message: 'Gagal memperbarui catatan. Id tidak ditemukan'
+    status: "fail",
+    message: "Gagal memperbarui catatan. Id tidak ditemukan",
   });
 };
 
@@ -79,13 +79,13 @@ export const deleteNoteById = (req, res) => {
   if (idx !== -1) {
     notes.splice(idx, 1);
     return res.json({
-      status: 'success',
-      message: 'Catatan berhasil dihapus'
+      status: "success",
+      message: "Catatan berhasil dihapus",
     });
   }
 
   return res.status(404).json({
-    status: 'fail',
-    message: 'Catatan gagal dihapus. Id tidak ditemukan'
+    status: "fail",
+    message: "Catatan gagal dihapus. Id tidak ditemukan",
   });
 };
