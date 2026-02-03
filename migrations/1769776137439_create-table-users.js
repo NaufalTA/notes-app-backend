@@ -7,32 +7,36 @@
  * @returns {Promise<void> | void}
  */
 export const up = (pgm) => {
-  pgm.createTable("notes", {
+  pgm.createTable('users', {
     id: {
-      type: "VARCHAR(50)",
-      primaryKey: true,
+      type: 'VARCHAR(50)',
+      primaryKey: true
     },
-    title: {
-      type: "TEXT",
+    username: {
+      type: 'VARCHAR(50)',
       notNull: true,
+      unique: true
     },
-    body: {
-      type: "TEXT",
-      notNull: true,
+    password: {
+      type: 'TEXT',
+      notNull: true
     },
-    tags: {
-      type: "TEXT[]",
-      notNull: true,
+    fullname: {
+      type: 'TEXT',
+      notNull: true
     },
     created_at: {
-      type: "TEXT",
+      type: 'TIMESTAMPTZ',
       notNull: true,
+      default: pgm.func('current_timestamp')
     },
     updated_at: {
-      type: "TEXT",
+      type: 'TIMESTAMPTZ',
       notNull: true,
+      default: pgm.func('current_timestamp')
     },
-  });
+
+  })
 };
 
 /**
@@ -41,5 +45,5 @@ export const up = (pgm) => {
  * @returns {Promise<void> | void}
  */
 export const down = (pgm) => {
-  pgm.dropTable("notes");
+  pgm.dropTable('users')
 };
