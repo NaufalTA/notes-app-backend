@@ -10,8 +10,6 @@ export const addCollaboration = async (req, res, next) => {
   const { id: credentialId } = req.user;
   const { noteId, userId } = req.validated;
 
-  console.log(userId);
-
   const isOwner = await NoteRepositories.verifyNoteOwner(noteId, credentialId);
   if (!isOwner) {
     return next(
